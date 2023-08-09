@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feedback Form</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="container">
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-header-left">
+                        <div class="screen-header-button close"></div>
+                        <div class="screen-header-button maximize"></div>
+                        <div class="screen-header-button minimize"></div>
+                    </div>
+                    <div class="screen-header-right">
+                        <div class="screen-header-ellipsis"></div>
+                        <div class="screen-header-ellipsis"></div>
+                        <div class="screen-header-ellipsis"></div>
+                    </div>
+                </div>
+                <div class="screen-body">
+                    <div class="screen-body-item left">
+                        <div class="app-title">
+                            <span>Feedback</span>
+                            <span>Form</span>
+                        </div>
+                    </div>
+                    <div class="screen-body-item">
+                        <div class="app-form">
+                            <div class="app-form-group">
+                                <input type="text" class="app-form-control" id="name" placeholder="Name">
+                            </div>
+                            <div class="app-form-group">
+                                <input type="text" class="app-form-control" id="email" placeholder="Email">
+                            </div>
+                            <div class="app-form-group">
+                                <input type="text" class="app-form-control" id="subject" placeholder="Subject">
+                            </div>
+                            <div class="app-form-group message">
+                                <input type="text" class="app-form-control" id="message" placeholder="Message">
+                            </div>
+                            <div class="app-form-group buttons">
+                                <button class="app-form-button">CANCEL</button>
+                                <button onclick="sendMessage()" class="app-form-button">SEND</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div id="response-box"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const subject = document.getElementById("subject").value;
+            const message = document.getElementById("message").value;
+
+            const feedbackData = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            };
+
+            fetch("http://127.0.0.1:5000//api", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(feedbackData),
+            })
+                .then(response => response.json())
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>

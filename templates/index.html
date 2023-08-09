@@ -13,6 +13,7 @@
 
     <div class="background">
         <div class="container">
+            <h3 id="response-box"></h3>
             <div class="screen">
                 <div class="screen-header">
                     <div class="screen-header-left">
@@ -39,7 +40,7 @@
                                 <input type="text" class="app-form-control" id="name" placeholder="Name">
                             </div>
                             <div class="app-form-group">
-                                <input type="text" class="app-form-control" id="email" placeholder="Email">
+                                <input type="email" class="app-form-control" id="email" placeholder="Email">
                             </div>
                             <div class="app-form-group">
                                 <input type="text" class="app-form-control" id="subject" placeholder="Subject">
@@ -53,7 +54,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="response-box"></div> -->
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 message: message
             };
 
-            fetch("http://127.0.0.1:5000//api", {
+            fetch("http://127.0.0.1:5000//api/create-feedback", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -81,6 +81,10 @@
                 body: JSON.stringify(feedbackData),
             })
                 .then(response => response.json())
+                .then(data => {
+                    const responseBox = document.getElementById("response-box");
+                    responseBox.innerHTML = `<pre>Thank you for your response, we appriciate every feedback and improve everyday.</pre>`;
+                })
                 .catch(error => {
                     console.error("Error:", error);
                 });
